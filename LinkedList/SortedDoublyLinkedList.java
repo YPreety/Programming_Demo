@@ -15,175 +15,135 @@ Node with data=21 has been deleted.
 Node with data=29 wasn't found for deletion.
 Node with data=59 has been deleted.
 Displaying in forward direction [first--->last] : 14 33 39 66 
-Displaying in backward direction [last-->first] : 66 39 33 14*/ 
-
+Displaying in backward direction [last-->first] : 66 39 33 14*/
 
 public class SortedDoublyLinkedList {
 
 	public static void main(String[] args) {
-		LinkedList5 linkedList = new LinkedList5(); // creation of Linked List    
-        
-        linkedList.insertSorted(11);
-        linkedList.insertSorted(21);
-        linkedList.insertSorted(59);
-        linkedList.insertSorted(14);
-        linkedList.insertSorted(39);
-        linkedList.insertSorted(66);
-        linkedList.insertSorted(33);
-
-        linkedList.displayFrwd(); // display DoublyLinkedList
-        linkedList.displayBckwrd();
-                     
-        System.out.println();// sysout used to format output
-        linkedList.deleteSpecificNode(11); //delete Node
-        linkedList.deleteSpecificNode(21); //delete Node
-        linkedList.deleteSpecificNode(29); //delete Node
-        linkedList.deleteSpecificNode(59); //delete Node
-        
-        linkedList.displayFrwd(); // display DoublyLinkedList
-        linkedList.displayBckwrd();
-
+		LinkedList5 linkedList = new LinkedList5();
+		linkedList.insertSorted(11);
+		linkedList.insertSorted(21);
+		linkedList.insertSorted(59);
+		linkedList.insertSorted(14);
+		linkedList.insertSorted(39);
+		linkedList.insertSorted(66);
+		linkedList.insertSorted(33);
+		linkedList.displayFrwd(); 
+		linkedList.displayBckwrd();
+		System.out.println();
+		linkedList.deleteSpecificNode(11); 
+		linkedList.deleteSpecificNode(21); 
+		linkedList.deleteSpecificNode(29); 
+		linkedList.deleteSpecificNode(59); 
+		linkedList.displayFrwd(); 
+		linkedList.displayBckwrd();
 	}
-
 }
+
 class LinkedList5 {
-    private Node4 first; // ref to first link on LinkedList
-    private Node4 last; // ref to last link on LinkedList
- 
-    /** LinkedList constructor  */
-    public LinkedList5(){
-           first = null;
-    }
-  
-    /** Insert New Node4 at first position  */
-    
-    public void insertFirst(int data){ // insert at front of list
-           Node4 newNode = new Node4(data); // creation of new node.
-           if (first == null) // means LinkedList is empty.
-                  last = newNode; //  newNode <--- last
-           else
-                  first.previous = newNode; // newNode <-- old first
-           newNode.next = first; // newNode --> old first
-           first = newNode; // first --> newNode
-    }
- 
-    /** Delete first node. */
-    public Node4 deleteFirst() { // (assumes non-empty list)
-           Node4 tempNode = first;
-           if (first.next == null) // if only one item
-                  last = null; // null <-- last
-           else
-                  first.next.previous = null; // null <-- old next
-           first = first.next; // first --> old next
-           return tempNode;
-    }
- 
-    
-    /***Insert Node in Sorted DoublyLinkedList (in between of other Nodes).
-     *Note:- Sorted DoublyLinkedList is arranged in ascending order.  */
-    public void insertSorted(int newKey){
-           
-           Node4 newNode=new Node4(newKey);
-           
-           //Case1: when there is no element in LinkedList
-           if(first==null){ //means LinkedList is empty, make first point to new Node.
-                  first=last=newNode;
-                  System.out.println("Node with data="+newNode.data+" inserted at first.");
-                  return;
-           }
-           
-           //Case2: when newNode should be placed at first.
-           Node4 current=first;
-           if(current.data>=newNode.data){
-                  newNode.next=first;
-                  first.previous=newNode;
-                  first=newNode;    //first ---> newNode
-                  System.out.println("Node with data="+newNode.data+" inserted at first Node, beacuse newNode is smallest of existing Nodes.");
-                  return;
-           }
-           
-           //Case3: when newNode should be at some position other than first.
-           while(true){
-                  if(newNode.data>current.data){ //entering inside if means we haven't find position for inserting node.
-                        if(current.next==null){ //means current is the last node, insert node.
-                               last.next=newNode;
-                               newNode.previous=last;
-                               last=newNode;
-                               System.out.println("Node with data="+newNode.data+" inserted successfully at last of LinkedList.");
-                               return;
-                        }
-                        current=current.next;   //move to next node.
-                  }
-                  else{  //we have find position for inserting node.
-                        current=current.previous;  //make current point to previous node.
-                        newNode.next=current.next; //make current's next point to newNode's next.
-                        current.next.previous=newNode; //make previous of current's next node point to newNode.
-                        newNode.previous=current;  //make newNode's previous point to current.
-                        current.next=newNode;          //make current's next point to newNode.
-                        System.out.println("Node with data="+newNode.data+" inserted successfully in middle of LinkedList.");
-                        return;
-                  }
-           }
-    }
-    
-    /** Method deletes specific Node from DoublyLinkedList. */
-    public void deleteSpecificNode(int deleteKey){
-           
-           //Case1: when there is no element in LinkedList
-           if(first==null){  //means LinkedList in empty, throw exception.              
-                  throw new LinkedListEmptyException("LinkedList doesn't contain any Nodes.");
-           }
-                        
-           //Case2: when there are elements in LinkedList
-           Node4 current=first;
-           while(current.data!=deleteKey){
-                  if(current.next==null){
-                        System.out.println("Node with data="+deleteKey+" wasn't found for deletion.");
-                        return;
-                  }
-                  current=current.next;   //move to next node.
-           }
-           
-           if(current==first){
-                  System.out.println("Node with data="+current.data+" was found on first and has been deleted.");
-                  first=first.next;
-                  first.previous=null;
-           }
-           else if(current==last){
-                  System.out.println("Node with data="+current.data+" was found on last has been deleted.");
-                  last=last.previous;
-                  last.next=null;
-           }
-           else{
-                  current.previous.next=current.next;
-                  current.next.previous=current.previous;
-                  System.out.println("Node with data="+current.data+" has been deleted.");
-           }
-    }
- 
- 
-    /** Display LinkedList in forward direction */
-    public void displayFrwd() {
-           System.out.print("Displaying in forward direction [first--->last] : ");
-           Node4 tempDisplay = first; // start at the beginning of linkedList
-           while (tempDisplay != null){ // Executes until we don't find end of list.
-                  tempDisplay.displayNode();
-                  tempDisplay = tempDisplay.next; // move to next Node
-           }
-           System.out.println("");
-    }
- 
- 
-    /** Display LinkedList in backward direction  */
-    public void displayBckwrd() {
-           System.out.print("Displaying in backward direction [last-->first] : ");
-           Node4 tempDisplay = last; // start at the end of linkedList
-           while (tempDisplay != null) {// Executes until we don't find start of list.    
-                  tempDisplay.displayNode();
-                  tempDisplay = tempDisplay.previous; // move to previous Node
-           }
-           System.out.println("");
-    }
-    
- 
+	private Node4 first; 
+	private Node4 last; 
+	public LinkedList5() {
+		first = null;
+	}
+	public void insertFirst(int data) { 
+		Node4 newNode = new Node4(data); 
+		if (first == null) 
+			last = newNode; 
+		else
+			first.previous = newNode; 
+		newNode.next = first; 
+		first = newNode; 
+	}
+	public Node4 deleteFirst() { 
+		Node4 tempNode = first;
+		if (first.next == null) 
+			last = null; 
+		else
+			first.next.previous = null; 
+		first = first.next; 
+		return tempNode;
+	}
+	public void insertSorted(int newKey) {
+		Node4 newNode = new Node4(newKey);
+		if (first == null) { 
+			first = last = newNode;
+			System.out.println("Node with data=" + newNode.data + " inserted at first.");
+			return;
+		}
+		Node4 current = first;
+		if (current.data >= newNode.data) {
+			newNode.next = first;
+			first.previous = newNode;
+			first = newNode; 
+			System.out.println("Node with data=" + newNode.data
+					+ " inserted at first Node, beacuse newNode is smallest of existing Nodes.");
+			return;
+		}
+		while (true) {
+			if (newNode.data > current.data) { 
+				if (current.next == null) { 
+					last.next = newNode;
+					newNode.previous = last;
+					last = newNode;
+					System.out.println(
+							"Node with data=" + newNode.data + " inserted successfully at last of LinkedList.");
+					return;
+				}
+				current = current.next; 
+			} else { 
+				current = current.previous; 
+				newNode.next = current.next; 
+				current.next.previous = newNode; 
+				newNode.previous = current; 
+				current.next = newNode; 
+				System.out.println("Node with data=" + newNode.data + " inserted successfully in middle of LinkedList.");
+				return;
+			}
+		}
+	}
+	public void deleteSpecificNode(int deleteKey) {
+		if (first == null) { 
+			throw new LinkedListEmptyException("LinkedList doesn't contain any Nodes.");
+		}
+		Node4 current = first;
+		while (current.data != deleteKey) {
+			if (current.next == null) {
+				System.out.println("Node with data=" + deleteKey + " wasn't found for deletion.");
+				return;
+			}
+			current = current.next; 
+		}
+		if (current == first) {
+			System.out.println("Node with data=" + current.data + " was found on first and has been deleted.");
+			first = first.next;
+			first.previous = null;
+		} else if (current == last) {
+			System.out.println("Node with data=" + current.data + " was found on last has been deleted.");
+			last = last.previous;
+			last.next = null;
+		} else {
+			current.previous.next = current.next;
+			current.next.previous = current.previous;
+			System.out.println("Node with data=" + current.data + " has been deleted.");
+		}
+	}
+	public void displayFrwd() {
+		System.out.print("Displaying in forward direction [first--->last] : ");
+		Node4 tempDisplay = first; 
+		while (tempDisplay != null) { 
+			tempDisplay.displayNode();
+			tempDisplay = tempDisplay.next; 
+		}
+		System.out.println("");
+	}
+	public void displayBckwrd() {
+		System.out.print("Displaying in backward direction [last-->first] : ");
+		Node4 tempDisplay = last; 
+		while (tempDisplay != null) {
+			tempDisplay.displayNode();
+			tempDisplay = tempDisplay.previous; 
+		}
+		System.out.println("");
+	}
 }

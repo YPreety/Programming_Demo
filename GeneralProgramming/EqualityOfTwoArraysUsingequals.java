@@ -1,4 +1,5 @@
 package GeneralProgramming;
+
 import java.util.Arrays;
 
 public class EqualityOfTwoArraysUsingequals {

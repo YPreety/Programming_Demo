@@ -145,18 +145,15 @@ class QueueEmptyException extends RuntimeException {
 
 }
 
-/*OUTPUT
-
-INSERTING AT LAST (REAR) IN QUEUE IMPLEMENTED USING LINKED LIST
-Displaying Queue> Front to Rear: 11
-Displaying Queue> Front to Rear: 11 71
-Displaying Queue> Front to Rear: 11 71 39
-Displaying Queue> Front to Rear: 11 71 39 31
- 
-DELETING FROM FIRST (FRONT) OF QUEUE IMPLEMENTED USING LINKED LIST
-Displaying Queue> Front to Rear: 71 39 31
-Displaying Queue> Front to Rear: 39 31
-Displaying Queue> Front to Rear: 31
-Displaying Queue> Front to Rear:
- 
-*/
+/*
+ * OUTPUT
+ * 
+ * INSERTING AT LAST (REAR) IN QUEUE IMPLEMENTED USING LINKED LIST Displaying
+ * Queue> Front to Rear: 11 Displaying Queue> Front to Rear: 11 71 Displaying
+ * Queue> Front to Rear: 11 71 39 Displaying Queue> Front to Rear: 11 71 39 31
+ * 
+ * DELETING FROM FIRST (FRONT) OF QUEUE IMPLEMENTED USING LINKED LIST Displaying
+ * Queue> Front to Rear: 71 39 31 Displaying Queue> Front to Rear: 39 31
+ * Displaying Queue> Front to Rear: 31 Displaying Queue> Front to Rear:
+ * 
+ */
